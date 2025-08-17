@@ -1,4 +1,4 @@
-MOV R0, #5            	; Move immediate value 5 to R0
+MOV R0, #5              ; Move immediate value 5 to R0
 MOV R1, #10           	; Move immediate value 10 to R1
 
 ADD R2, R0, R1        	; R2 = R0 + R1 => 15
