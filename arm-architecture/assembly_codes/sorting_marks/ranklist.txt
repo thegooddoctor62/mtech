@@ -1,0 +1,111 @@
+	AREA RESET,DATA,READONLY
+	EXPORT __Vectors
+
+__Vectors
+	DCD 0x20001000
+	DCD Reset_Handler
+
+	AREA MyCode,CODE,READONLY
+
+	ENTRY
+	EXPORT Reset_Handler
+
+Reset_Handler
+
+	LDR R0, =0x20000000 ;
+	
+	;MARKS OF STUDENT 1
+	MOV R1,#01           ;
+	STRB R1,[R0],#1      ; 
+	MOV R1,#95           ;
+	STRB R1,[R0],#1      ;  
+	MOV R1,#90 ;
+	STRB R1,[R0],#1      ;
+	MOV R1,#90 ;
+	STRB R1,[R0],#1      ;
+	
+	;MARKS OF STUDENT 2
+	MOV R1,#02           ;
+	STRB R1,[R0],#1      ;
+	MOV R1,#85           ;
+	STRB R1,[R0],#1      ;  
+	MOV R1,#90 ;
+	STRB R1,[R0],#1      ;
+	MOV R1,#91 ;
+	STRB R1,[R0],#1      ;
+	
+	;MARKS OF STUDENT 3
+	MOV R1,#03           ;
+	STRB R1,[R0],#1      ;
+	MOV R1,#99           ;
+	STRB R1,[R0],#1      ;  
+	MOV R1,#99 ;
+	STRB R1,[R0],#1      ;
+	MOV R1,#99 ;
+	STRB R1,[R0],#1      ;
+	MOV R12,R0
+	
+	;TOTAL MARKS
+	LDR R0, =0x20000001  ;
+	MOV R4,#1            ;
+total
+	LDRB R1,[R0],#1
+	LDRB R2,[R0],#1      ;
+	LDRB R3,[R0],#1		 ;
+	ADD R1,R1,R2
+	ADD R1,R1,R3
+	STRH R1,[R12],#2 	;
+	ADD R4,R4,#1
+	ADD R0,R0,#1
+	CMP R4,#4
+	BNE total
+	;sorting
+	SUBS  R12,R12,#6 ;
+
+	LDRH R0, [R12], #2      ;
+	LDRH R1, [R12], #2      ;
+    LDRH R2, [R12], #2    		;
+	
+    LDR  R11, =0x20000000 ;
+	LDR  R3,[R11],#4
+	LDR  R4,[R11],#4
+	LDR  R5,[R11]
+	
+	
+	CMP R0,R1
+	BGE branch_2
+	MOV R6,R0	
+	MOV R0,R1
+	MOV R1,R6
+	MOV R6,R3
+	MOV R3,R4
+	MOV R4,R6
+
+branch_2
+	CMP R0,R2
+	BGE branch_3
+	MOV R6,R0
+	MOV R0,R2
+	MOV R2,R6
+	MOV R6,R3
+	MOV R3,R5
+	MOV R5,R6
+
+branch_3
+	CMP R1,R2
+	BGE Sorting_done
+	MOV R6,R1
+	MOV R1,R2
+	MOV R2,R6
+	MOV R6,R4
+	MOV R4,R5
+	MOV R5,R6
+
+Sorting_done
+	STR  R3,[R12],#4
+	STRH R0,[R12],#2
+	STR  R4,[R12],#4
+	STRH R1,[R12],#2
+	STR  R5,[R12],#4
+	STRH R2,[R12],#2
+	END 
