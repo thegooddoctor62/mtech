@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<math.h>
+#include<stdlib.h>
 void menu()
 {
         printf("=== Simple Calculator ===\n");
@@ -11,15 +12,26 @@ void menu()
         printf("6) Power(**)\n");
         printf("0) Exit\n");
 }
-int choice_selection()
-{
-        int choice;
-        printf("Enter your choice:");
-        scanf("%d",&choice);
-        if (choice<0||choice>6)
-        {printf("Please Enter a Valid Choice");}
-        else{return choice;}
-        
+int choice_selection() {
+    int choice;
+    printf("Enter your choice: ");
+    scanf("%d", &choice);
+
+    if (choice == 0) {
+        printf("GoodBye!\n");
+        exit(0); 
+    }
+
+    while (choice < 0 || choice > 6) {
+        printf("Invalid choice! Enter 0-6: ");
+        scanf("%d", &choice);
+        if (choice == 0) {
+            printf("GoodBye!\n");
+            exit(0);
+        }
+    }
+
+    return choice;
 }
 void calculator(int choice,int num1,int num2)
 {
@@ -61,7 +73,7 @@ int main()
         choice=choice_selection();
         if (choice==0)
         {printf("GoodBye!");
-         return 0;
+         exit(0);
         }
         printf("Enter first number :");
         scanf("%d",&num1);
